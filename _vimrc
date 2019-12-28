@@ -1218,6 +1218,8 @@ set timeoutlen=500                          "use this plugin must set this. defa
 " 查看leader的快捷键
 nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
+" 查看s的快捷键
+nnoremap <silent> s :<c-u>WhichKey 's'<CR>
 " }}}
 
 " {{{ << Plugin - expand-region >>
