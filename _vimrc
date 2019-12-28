@@ -5,7 +5,7 @@
 "|_|  |_| |_|         \_/  |___|_|  |_|_| \_\\____|
 "=============================================================================
 "     FileName: _vimrc
-"         Desc:
+"         Desc: support Python
 "       Author: MaXL
 "        Email: ismaxiaolong@gmail.com
 "     HomePage: https://twitter.com/Maxl56679061
