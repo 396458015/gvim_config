@@ -1380,8 +1380,3 @@ let g:mkdp_page_title = '「${name}」'
 
 " }}}
 
-"fuck you too
-"fuck you too
-"fuck you too
-"fuck you too
-"fuck you too
