@@ -1035,7 +1035,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline_theme='dark'                                     "default theme classic
 
 "还不错,4星推荐
-"let g:airline_theme='badwolf'                                  "类默认配色,normal黄绿色,变更后字体变橙
+"let g:airline_theme='badwolf'                                  "类默认配色,NORMAL黄绿色,变更后字体变橙
 "let g:airline_theme='light'                                    "很亮的配色,高达配色
 "let g:airline_theme='molokai'                                  "黄色,变更后背景颜色变黄
 "let g:airline_theme='kolor'                                    "紫色/蓝色,变更后背景颜色变紫色
@@ -1044,12 +1044,12 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "精美,5星推荐
 let g:airline_theme='solarized_flood'                          "颜色灵动,好看,变更后颜色为珊瑚红色喜欢
 "let g:airline_theme='luna'                                     "棒,变更后背景颜色变为深红
-"let g:airline_theme='murmur'                                   "normal蓝色,变更后颜色为深红色喜欢
+"let g:airline_theme='murmur'                                   "NORMAL蓝色,变更后颜色为深红色喜欢
 "let g:airline_theme='behelit'                                  "深蓝配色,低调,变更后深红色字体
 
 "类grvubox风格
-"let g:airline_theme='base16'                                   "类 gruvbox 风格,normal黄色
-"let g:airline_theme='lucius'                                   "类 gruvbox 风格,normal灰色
+"let g:airline_theme='base16'                                   "类 gruvbox 风格,NORMAL黄色
+"let g:airline_theme='lucius'                                   "类 gruvbox 风格,NORMAL灰色
 "let g:airline_theme='base16_gruvbox_dark_hard'                 "gruvbox主题没什么特色
 " }}}
 
@@ -1284,7 +1284,7 @@ autocmd FileType markdown nnoremap tab :TableModeRealign<Cr>
 autocmd FileType markdown nnoremap ml :GenTocMarked<Cr>
 
 " << Plugin gabrielelana-markdown >>
-let g:markdown_enable_mappings = 0                  "取消该软件normal按键映射
+let g:markdown_enable_mappings = 0                  "取消该软件NORMAL按键映射
 let g:markdown_enable_insert_mode_mappings = 0      "取消该软件i按键映射
 let g:markdown_enable_spell_checking = 0            "关闭拼写检查
 let g:markdown_enable_folding = 1                   "开启markdown折叠
