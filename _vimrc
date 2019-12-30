@@ -46,9 +46,10 @@
 " <                      --减少缩进
 " >                      --增加缩进
 
-" <A-h>                  --NORMAL模式下,光标移动到行首
-" <A-l>                  --NORMAL模式下,光标移动到行尾
-" <C-a>                  --INSERT模式下,光标移动到行尾输入模式
+" <A-h>                  --NORMAL模式下,光标移动到 行首
+" <A-l>                  --NORMAL模式下,光标移动到 行尾
+" <C-a>                  --INSERT模式下,光标移动到 行首
+" <C-e>                  --INSERT模式下,光标移动到 行尾
 
 " <C-P><C-N>             --INSERT模式,单词补全
 
@@ -60,6 +61,13 @@
 
 " gU                     --小写变大写
 " gu                     --大写变小写
+
+" <BS>                   --取消高亮
+
+" ---------------- 补全提示 -------------------
+" INSERT模式下
+" <Tab>                  --Python 语言提示(pydiction)
+" <C-x>_<C-k>            --All languages 提示(vim-dict)
 
 " ------------- Spell Checking ----------------
 " <LEADER>sc             --拼写检查
@@ -165,6 +173,7 @@
 
 " << Plugin - NERDTree >>
 " <leader>e              --启动/关闭NERDTree
+" r                      --刷新
 " <C-t> <C-l> <C-j>      --打开选择文件(新tab/垂直分屏/水平分屏)
 
 " << Plugin - Sourround >>
@@ -273,6 +282,12 @@
 " <SHIFT>m              --跳转(上一个)
 " m<SPACE>              --清除所有书签
 " <Leader>m             --书签列表
+
+" << Plugin - tpope/vim-eunuch >>
+" CMD 模式下
+" :Delete               --删除
+" :Rename XXX           --重命名为XXX
+" :Mkdir XXX            --在该路径下,新建XXX文件夹
 
 " }}}
 
@@ -497,7 +512,8 @@ inoremap <C-h> <C-Left>
 inoremap <C-l> <C-Right>
 
 " INSERT Mode Cursor Movement
-inoremap <C-a> <ESC>A
+inoremap <C-a> <ESC>I
+inoremap <C-e> <ESC>A
 
 " NORMAL Mode下 Alt + L将光标移动到行尾
 nmap <A-l> <ESC>$
