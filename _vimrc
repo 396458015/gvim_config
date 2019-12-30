@@ -312,10 +312,19 @@ nnoremap <A-CR> :REPLToggle<Cr>
 
 " {{{ 编码格式
 " 设置文件编码格式
-set encoding=utf-8
-set termencoding=utf-8
-set fileencodings=utf-8,cp936,chinese,latin-1,gbk,gb18030,gk2312
-set fileencoding=utf-8
+if has('multi_byte')
+    " 内部工作编码
+    set encoding=utf-8
+
+    set termencoding=utf-8
+
+    " 文件默认编码
+    set fileencoding=utf-8
+
+    " 打开文件时自动尝试下面顺序的编码
+    set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
+endif
+
 " }}}
 
 " {{{ 字体/字号
@@ -1273,6 +1282,10 @@ let g:SignatureMap = {
             \ 'ListBufferMarks'    :  "<Leader>m",
             \ 'ListBufferMarkers'  :  ""
             \ }
+" }}}
+
+" {{{ Plugin -<< vim-python/python-syntax >>
+let g:python_highlight_all = 1
 " }}}
 
 " {{{ MarkDown Plugin -<< markdown-toc >> << table-mode >><< gabrielelana-markdown >> << Pangu >>
