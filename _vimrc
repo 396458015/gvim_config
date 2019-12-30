@@ -349,6 +349,10 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
+set lazyredraw               " 延时绘制(提升性能)
+set formatoptions+=m         " 如遇Unicode值大于255的文本,不必等到空格再折行
+set formatoptions+=B         " 合并两行中文时,不在中间加空格
+
 set linebreak                " 整词换行
 set backspace=2              " 设置退格键可用
 set cindent shiftwidth=4     " 自动缩进4空格
