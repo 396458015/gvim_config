@@ -1272,6 +1272,7 @@ let g:SignatureMap = {
 " }}}
 
 " {{{ MarkDown Plugin -<< markdown-toc >> << table-mode >><< gabrielelana-markdown >> << Pangu >>
+
 "<< Plugin table-mode >>
 au FileType markdown let g:table_mode_corner = '|'
 au FileType markdown let g:table_mode_delimiter = ' '
