@@ -33,9 +33,6 @@
 " <leader>rc             --呼出配置文件
 " <leader>rv             --重新加载配置文件
 
-" <C-o>                  --跳转至上一个光标位置
-" <C-i>                  --跳转至下一个光标位置
-
 " <C-a>                  --将光标后的数字增加1
 " <C-x>                  --将光标后的数字减少1
 
@@ -45,13 +42,6 @@
 
 " <                      --减少缩进
 " >                      --增加缩进
-
-" <A-h>                  --NORMAL模式下,光标移动到 行首
-" <A-l>                  --NORMAL模式下,光标移动到 行尾
-" <C-a>                  --INSERT模式下,光标移动到 行首
-" <C-e>                  --INSERT模式下,光标移动到 行尾
-
-" <C-P><C-N>             --INSERT模式,单词补全
 
 " :set syntax=cpp        --手动选择语法高亮 [或 :set filetype=cpp]
 " :%!xxd                 --转储二进制文件,以十六进制形式显示
@@ -64,10 +54,31 @@
 
 " <BS>                   --取消高亮
 
+" ---------------- 光标移动 ------------------
+" <C-o>                  --NORMAL模式,跳转至上一个光标位置
+" <C-i>                  --NORMAL模式,跳转至下一个光标位置
+
+" <A-h>                  --NORMAL模式,光标移动到 行首
+" <A-l>                  --NORMAL模式,光标移动到 行尾
+"
+" <C-a>                  --INSERT模式,光标移动到 行首
+" <C-e>                  --INSERT模式,光标移动到 行尾
+" <C-h>                  --INSERT模式,向左 移动(以单词为步长)
+" <C-l>                  --INSERT模式,向右 移动(以单词为步长)
+
+" <C-a>                  --COMMAND模式,移动到起始位置
+" <C-e>                  --COMMAND模式,移动到结束位置
+" <C-h>                  --COMMAND模式,向左移动(以单词为步长)
+" <C-l>                  --COMMAND模式,向右移动(以单词为步长)
+" <C-K>                  --COMMAND模式,删除命令
+" <A-h>                  --COMMAND模式,向左移动
+" <A-l>                  --COMMAND模式,向右移动
+
 " ---------------- 补全提示 -------------------
 " INSERT模式下
 " <Tab>                  --Python 语言提示(pydiction)
 " <C-x>_<C-k>            --All languages 提示(vim-dict)
+" <C-P><C-N>             --INSERT模式,单词补全(vim自带)
 
 " ------------- Spell Checking ----------------
 " <LEADER>sc             --拼写检查
@@ -107,11 +118,6 @@
 
 " --------------- CMD命令行 -------------------
 "   Q                    --进入到Ex 命令行模式
-" <C-A>                  --command输入状态下,移动到起始位置
-" <C-E>                  --command输入状态下,移动到结束位置
-" <C-K>                  --command输入状态下,删除命令
-" <A-h>                  --command输入状态下,向左移动
-" <A-l>                  --command输入状态下,向右移动
 
 " --------------- 运行Python ------------------
 " <Ctrl><Enter>          --编译Python语言并在窗口中显示
@@ -659,6 +665,9 @@ endfunction
 cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
+cnoremap <C-h>      <C-Left>
+cnoremap <C-l>      <C-Right>
+
 cnoremap <A-h>		<left>
 cnoremap <A-l>		<right>
 
