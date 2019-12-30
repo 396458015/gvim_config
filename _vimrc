@@ -1285,7 +1285,8 @@ let g:SignatureMap = {
 " }}}
 
 " {{{ Plugin -<< vim-python/python-syntax >>
-let g:python_highlight_all = 1
+let g:python_highlight_all = 1              " Enable all syntax highlighting features of Python
+"let g:python_highlight_operators = 0       " Highlight operators 运算符号为红色,若取消,令=0
 " }}}
 
 " {{{ MarkDown Plugin -<< markdown-toc >> << table-mode >><< gabrielelana-markdown >> << Pangu >>
