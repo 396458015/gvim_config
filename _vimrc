@@ -74,7 +74,7 @@
 
 " <A-h>                  --NORMAL模式,光标移动到 行首
 " <A-l>                  --NORMAL模式,光标移动到 行尾
-"
+
 " <C-a>                  --INSERT模式,光标移动到 行首
 " <C-e>                  --INSERT模式,光标移动到 行尾
 " <C-h>                  --INSERT模式,向左 移动(以单词为步长)
@@ -253,7 +253,7 @@
 " <F6>                   --呼出日历
 " <Ctrl-F6>              --呼出竖分屏日历
 " <Alt-F6>               --呼出时钟
-"
+
 " << Plugin - Markdown-Preview >>
 " <F12>                   --打开浏览器实时预览markdown
 " <A-F12>                 --关闭浏览器
@@ -359,7 +359,6 @@ if has('multi_byte')
     " 打开文件时自动尝试下面顺序的编码
     set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 endif
-
 " }}}
 
 " {{{ 字体/字号
@@ -1356,7 +1355,6 @@ autocmd FileType markdown nnoremap <silent> <Tab> :call markdown#SwitchStatus()<
 " << Pangu >>
 " 自动格式化,标准化中文排版
 autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
-
 " }}}
 
 " ------------------------------- 需要python支持的Plugins --------------------------------
