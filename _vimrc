@@ -297,6 +297,9 @@
 " <leader>n             --选择下一个复制的文本
 " <leader>y             --显示复制粘贴历史记录
 
+" << Plugin - Goyo >>
+" <leader>gy            --进入Goyo模式
+
 " << Plugin - kshenoy/signature >>
 " mm                    --增/删书签
 " 按字母顺序跳转
@@ -1298,6 +1301,11 @@ let g:yankring_replace_n_pkey = '<Leader>p'                    "<leader>p选择�
 let g:yankring_replace_n_nkey = '<Leader>n'                    "<leader>n选择下一个复制的文本
 "<leader>y显示yankring中的内容
 nmap <Leader>y :YRShow<CR>
+" }}}
+
+" {{{ << Plugin - junegunn/goyo.vim >>
+nmap <silent> <leader>gy      :Goyo<CR>
+xmap <silent> <leader>gy      :Goyo<CR>
 " }}}
 
 " {{{ << Plugin - kshenoy/signature >>
