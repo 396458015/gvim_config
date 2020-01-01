@@ -104,6 +104,7 @@
 " --------------- 分屏快捷键 ------------------
 " sl                     --新建一个垂直分割窗口,放置在当前窗口右侧
 " sj                     --新建一个水平分割窗口,放置在当前窗口下方
+" st                     --新建一个垂直分割窗口startify,放置在当前窗口右侧
 " sv                     --设置两个分屏为垂直分割
 " sh                     --设置两个分屏为水平分割
 " srv                    --互换分割窗口
@@ -158,6 +159,7 @@
 " ---------------- Plugins --------------------
 " << Plugin - startify >>
 " <leader>st             --打开startify
+" st                     --新建一个垂直分割窗口startify,放置在当前窗口右侧
 
 " << Plugin - repeat >>
 " '.'                    --NORMAL模式通过'.'重复上一步的命令.
@@ -818,6 +820,8 @@ tnoremap <ScrollWheelDown> <C-w>Nj
 "----------------分屏快捷键设置--------------------------------------------------
 " 新建一个垂直分割窗口,放置在当前窗口右侧
 noremap sl :set splitright<CR>:vsplit<CR>
+" 新建一个垂直分割窗口startify,放置在当前窗口右侧
+noremap st :set splitright<CR>:vsplit<CR>:Startify<CR>
 " 新建一个水平分割窗口,放置在当前窗口下方
 noremap sj :set splitbelow<CR>:split<CR>
 
