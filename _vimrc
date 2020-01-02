@@ -31,6 +31,8 @@
 
 " <C-v>                  --CMD 模式,粘贴快捷键
 
+" :diffthis              --CMD 模式,文件比较,分屏打开两个文件后,分别输入diffthis.]-c和[-c移动
+
 " xtime                  --插入时间(插入模式下)
 
 " :set syntax=cpp        --手动选择语法高亮 [或 :set filetype=cpp]
@@ -163,6 +165,7 @@
 " << Plugin - startify >>
 " <leader>st             --打开startify
 " st                     --新建一个垂直分割窗口startify,放置在当前窗口右侧
+" s,v,t                  --在startify打开多文件时,标记s/v/t打开:s(水平窗口)v(垂直窗口)t(tab中打开)
 
 " << Plugin - repeat >>
 " '.'                    --NORMAL模式通过'.'重复上一步的命令.
@@ -317,6 +320,9 @@
 " :Rename XXX           --重命名为XXX
 " :Mkdir XXX            --在该路径下,新建XXX文件夹
 
+" << Plugin - emoji-complete >>
+" <leader>o             --INSERT 模式下,emoji表情.
+
 " }}}
 
 " {{{ 配色方案
@@ -339,17 +345,15 @@ colorscheme  gruvbox
 "colorscheme  dracula
 "colorscheme  base16-greenscreen
 
-highlight LineNr guibg = gray		"行号区的背景色
-highlight LineNr guifg = red		"行号区的前景色
 " }}}
 
-"Alt快捷键BUG解决方案{{{
-"BUG点:Alt快捷键生效与否 与 utf-8 在vimrc位置关系.
-"1: <A-CR>快捷键设置在"编码格式"位置后,<A-CR>失效.
-"2: <A-CR>以外的Alt快捷键,若设置在"编码格式"位置前,快捷键失效.
-"所以,<A-CR>快捷应设置在"编码格式"位置前;其余Alt快捷键应设置在"编码格式"位置后.均可生效.
+" Alt快捷键BUG解决方案{{{
+" BUG点:Alt快捷键生效与否 与 utf-8 在vimrc位置关系.
+" 1: <A-CR>快捷键设置在"编码格式"位置后,<A-CR>失效.
+" 2: <A-CR>以外的Alt快捷键,若设置在"编码格式"位置前,快捷键失效.
+" 所以,<A-CR>快捷应设置在"编码格式"位置前;其余Alt快捷键应设置在"编码格式"位置后.均可生效.
 
-"设置<< Plugin - REPL >>快捷键,<A-CR>调用IPython.
+" 设置<< Plugin - REPL >>快捷键,<A-CR>调用IPython.
 nnoremap <A-CR> :REPLToggle<Cr>
 " }}}
 
@@ -371,8 +375,8 @@ endif
 
 " {{{ 字体/字号
 "set guifont=Consolas:h15
-set guifont=Inconsolata_for_Powerline:h15:cANSI     "Inconsolata for Powerline.otf
-set guifontwide=Microsoft\ Yahei\ Mono:h14.5:cANSI  "MSYHMONO.ttf
+set guifont=Inconsolata_for_Powerline:h15:cANSI     " Inconsolata for Powerline.otf
+set guifontwide=Microsoft\ Yahei\ Mono:h14.5:cANSI  " MSYHMONO.ttf
 " }}}
 
 " {{{ 常规设置
@@ -417,7 +421,7 @@ set hlsearch                 " 开启高亮显示结果
 set incsearch                " 开启实时搜索功能
 set ignorecase				 " 忽略大小写
 set smartcase
-" set nowrapscan			 " 搜索到文件两端时不重新搜索
+"set nowrapscan			      " 搜索到文件两端时不重新搜索
 set vb t_vb=                 " 关闭提示音
 set guicursor+=a:blinkon0    " 设置光标不闪烁
 set hidden					 " 允许在有未保存的修改时切换缓冲区
@@ -461,19 +465,22 @@ set showtabline=2                         " always show tabs in gvim, but not vi
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " ------------------- 行/列高亮 ----------------------
-"Gvim 列高亮 显示
+" Gvim 行+列高亮 显示(cuc = cursorcolumn cul = cursorline)
 set cuc cul
         if &bg == 'dark'
                 hi CursorLine gui=NONE guibg=#333333
         else
                 hi CursorLine gui=NONE guibg=#CCCCCC
         endif
-"Gvim 行高亮 显示
-"set cursorline                         " 突出显示当前行
-autocmd WinEnter * set cursorline       " 进入窗口高亮当前行
-autocmd WinLeave * set nocursorline     " 离开窗口取消高亮当前行
-autocmd InsertEnter * set nocursorline  " 插入模式取消高亮当前行
-autocmd InsertLeave * set cursorline    " 离开插入模式恢复高亮当前行
+
+autocmd WinEnter * set cul       " 进入窗口 高亮当前行
+autocmd WinEnter * set cuc       " 进入窗口 高亮当前列
+autocmd WinLeave * set nocul     " 离开窗口 取消 高亮当前行
+autocmd WinLeave * set nocuc     " 离开窗口 取消 高亮当前列
+autocmd InsertEnter * set nocul  " 插入模式 取消 高亮当前行
+autocmd InsertEnter * set nocuc  " 插入模式 取消 高亮当前列
+autocmd InsertLeave * set cul    " 离开插入模式 恢复 高亮当前行
+autocmd InsertLeave * set cuc    " 离开插入模式 恢复 高亮当前列
 
 " ------------------- 窗口菜单栏设置 ----------------------
 set lines=100 columns=200   " 启动时窗口尺寸设置
@@ -490,7 +497,7 @@ endif
 " 窗口中文菜单乱码解决方案
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
-"解决consle提示信息输出乱码
+" 解决consle提示信息输出乱码
 language messages zh_CN.utf-8
 " }}}
 
@@ -529,10 +536,10 @@ iab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 :command QA qa
 
 " -------------------- vimrc ----------------------
-" 设置打开配置文件vimrc的快捷键为<leader>rc
-map <leader>rc :e $VIM/_vimrc<CR>
+" 打开配置文件vimrc
+noremap <leader>rc :edit $MYVIMRC<cr>
 " 重新加载vimrc
-map <leader>rv :source $MYVIMRC<CR>
+noremap <leader>rv :source $MYVIMRC<CR>
 
 " --------------- Spell checking ------------------
 " 拼写检查快捷键为\+sc
@@ -545,6 +552,12 @@ map <leader>sa zg
 map <leader>s? z=
 
 " ------------------- 光标移动 --------------------
+"     ^
+"     k
+" < h   l >
+"     j
+"     v
+
 " NORNAL Mode faster navigation
 noremap <silent> U 5k
 noremap <silent> E 5j
@@ -762,25 +775,25 @@ endfunc
 
 " {{{ 光标颜色设置
 
-"------ Except grvubox colorscheme -------
-"将光标设置为黄色,光标下字体颜色为black(white)
+" ------ Except grvubox colorscheme -------
+" 将光标设置为黄色,光标下字体颜色为black(white)
 "au InsertLeave * hi Cursor guibg=yellow
 "highlight Cursor guifg=black guibg=yellow
 
-"将光标设置为绿色,光标下字体颜色为black(white)
+" 将光标设置为绿色,光标下字体颜色为black(white)
 "au InsertLeave * hi Cursor guibg=green
 "highlight Cursor guifg=black guibg=green
 
-"将光标设置为粉白色,光标下字体颜色为black(white)
+" 将光标设置为粉白色,光标下字体颜色为black(white)
 "au InsertLeave * hi Cursor guibg=#ffdfff
 "highlight Cursor guifg=black guibg=#ffdfff
 
-"--------- gruvbox colorscheme -----------
-"将光标设置为黄色,光标下字体颜色为black(white)
+" --------- gruvbox colorscheme -----------
+" 将光标设置为黄色,光标下字体颜色为black(white)
 "au InsertLeave * hi Cursor guibg=black
 "highlight Cursor guifg=yellow guibg=black
 
-"将光标设置为粉白色,光标下字体颜色为black(white)
+" 将光标设置为粉白色,光标下字体颜色为black(white)
 au InsertLeave * hi Cursor guibg=black
 highlight Cursor guifg=#ffdfff guibg=black
 " }}}
@@ -802,7 +815,7 @@ set foldlevel=33
 "au FileType matlab set foldmethod=syntax foldcolumn=2 foldlevel=33       " matlab
 "au FileType python set foldmethod=marker foldcolumn=2 foldlevel=33       " matlab
 
-"au BufWinLeave * silent mkview      "退出时自动保存折叠,':mkview':保存折叠.仅对manual有效,marker有标记.
+"au BufWinLeave * silent mkview      " 退出时自动保存折叠,':mkview':保存折叠.仅对manual有效,marker有标记.
 "au BufWinEnter * silent loadview    " 打开时自动加载折叠,':loadview':载入折叠.仅对manual有效,marker有标记.
 "------------------- hot key ----------------------
 " zf                        --创建折叠,仅在manual/marker中有效(eg:v{motion}zf v{motion}指Shift+v)
@@ -814,22 +827,22 @@ set foldlevel=33
 " }}}
 
 " {{{ 分屏设置
-set splitright      "新的窗口在右边打开
-set splitbelow      "新的窗口在下边打开
+set splitright      " 新的窗口在右边打开
+set splitbelow      " 新的窗口在下边打开
 
-"buffers/quickfix 分屏窗口移动,split navigations,smart way to move between windows
+" buffers/quickfix 分屏窗口移动,split navigations,smart way to move between windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"terminal 分屏窗口移动,split navigations,smart way to move between windows
+" terminal 分屏窗口移动,split navigations,smart way to move between windows
 tnoremap <C-h> <C-w><C-h>
 tnoremap <C-j> <C-w><C-j>
 tnoremap <C-k> <C-w><C-k>
 tnoremap <C-l> <C-w><C-l>
 
-"使terminal变为NORMAL模式,从而可以看历史记录
+" 使terminal变为NORMAL模式,从而可以看历史记录
 tnoremap <C-n> <C-w>N
 tnoremap <ScrollWheelUp> <C-w>Nk
 tnoremap <ScrollWheelDown> <C-w>Nj
@@ -855,21 +868,21 @@ noremap srh <C-w>b<C-w>K
 noremap <LEADER>q <C-w>j:q<CR>
 
 "----------------调整分屏尺寸--------------------------------------------------
-"调整上下分屏尺寸
-nmap    w<up>  :resize -3<CR>
-"调整上下分屏尺寸
-nmap    w<down>  :resize +3<CR>
-"调整左右分屏尺寸
-nmap    w<left>  :vertical resize +3<CR>
-"调整左右分屏尺寸
-nmap    w<right>  :vertical resize -3<CR>
+" 调整上下分屏尺寸
+nmap    w<up>  :resize -5<CR>
+" 调整上下分屏尺寸
+nmap    w<down>  :resize +5<CR>
+" 调整左右分屏尺寸
+nmap    w<left>  :vertical resize +5<CR>
+" 调整左右分屏尺寸
+nmap    w<right>  :vertical resize -5<CR>
 " }}}
 
 " {{{ Python编译
 " -------------------------------编译python -----------------------------------
-"三种方式运行python程序.1:在vim里显示结果.2:在cmd里显示结果.3:在vim里显示结果.
+" 三种方式运行python程序.1:在vim里显示结果.2:在cmd里显示结果.3:在vim里显示结果.
 " -----------------------------------------------------------------------------
-"第一种,<Ctrl-ENTER>组合键运行代码,quickfix显示结果.
+" 第一种,<Ctrl-ENTER>组合键运行代码,quickfix显示结果.
 "function CheckPythonSyntax()
     "let mp = &makeprg
     "let ef = &errorformat
@@ -888,13 +901,13 @@ nmap    w<right>  :vertical resize -3<CR>
 " copen是打开quickfix,n用来设置quichfix窗口大小,如 cope5.在错误描述上回车,可以直接跳转到错误行.
 
 " -----------------------------------------------------------------------------
-"第二种,<Ctrl-ENTER>组合键运行代码,cmd里显示结果.
+" 第二种,<Ctrl-ENTER>组合键运行代码,cmd里显示结果.
 "autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r’%’)\"
 "autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 "autocmd BufRead *.py nmap <C-CR> :!python %<CR><CR>
 
 " -----------------------------------------------------------------------------
-"第三种,<Ctrl-ENTER>组合键通过插件AsyncRun运行代码,quickfix显示结果.
+" 第三种,<Ctrl-ENTER>组合键通过插件AsyncRun运行代码,quickfix显示结果.
 let g:asyncrun_encs='gbk'                              "跟系统编码一致,解决输出中文乱码
 let $PYTHONUNBUFFERED=1                                "禁用python stdout缓冲
 "<Ctrl-ENTER>执行python
@@ -908,38 +921,6 @@ function s:CompileRunGcc()
         wincmd w                                           "光标在编辑区
     endif
 endfunction
-" }}}
-
-" {{{ 括号/引号/中括号等自动匹配
-":inoremap ( ()<ESC>i
-
-":inoremap ) <c-r>=ClosePair(')')<CR>
-
-":inoremap { {}<ESC>i
-
-":inoremap } <c-r>=ClosePair('}')<CR>
-
-":inoremap [ []<ESC>i
-
-":inoremap ] <c-r>=ClosePair(']')<CR>
-
-":inoremap < <><ESC>i
-
-":inoremap > <c-r>=ClosePair('>')<CR>
-
-":inoremap " ""<ESC>i
-
-":inoremap ' ''<ESC>i
-
-":inoremap ` ``<ESC>i
-
-"function! ClosePair(char)
-    "if getline('.')[col('.') - 1] == a:char
-                "return "\<Right>"
-        "else
-                "return a:char
-        "endif
-"endf
 " }}}
 
 "{{{Markdown Snippits
@@ -970,9 +951,25 @@ autocmd Filetype markdown inoremap ,l --------<Enter>
 execute pathogen#infect()
 " }}}
 
+" {{{ << Plugin - startify >>
+let g:startify_files_number = 20        " 起始页显示的列表长度
+" 设置书签
+let g:startify_bookmarks            = [
+            \ '~/bookmarks',
+            \]
+" 设置footer
+let g:startify_custom_footer = [
+            \ '+------------------------------+',
+            \ '|                              |',
+            \ '|    Still waters run deep!    |',
+            \ '|                              |',
+            \ '+------------------------------+',
+            \]
+" }}}
+
 " {{{ << Plugin - NERDcommenter >>
 " -----------------------------------------------------------------------------
-"注释时自动加一个空格
+" 注释时自动加一个空格
 "let g:NERDSpaceDelims=1
 
 "   hot key
@@ -988,27 +985,27 @@ execute pathogen#infect()
 let g:vimrc_author='MaXL'
 let g:vimrc_email='ismaxiaolong@gmail.com'
 let g:vimrc_homepage='https://twitter.com/Maxl56679061'
-"使用F7呼出,使用:AuthorInfoDetect呼出
+" 使用F7呼出,使用:AuthorInfoDetect呼出
 nmap <F7> :AuthorInfoDetect<cr><cr>
 " }}}
 
 " {{{ << Plugin - NERDTree >><< Plugin - NERDTreeTabs >>
 " -----------------------------------------------------------------------------
-"快捷键<leader>e启动/关闭NERDTree
+" 快捷键<leader>e启动/关闭NERDTree
 map <leader>e <plug>NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup = 0 "启动vim时自动启动NERDTree,1开启,0关闭
-let g:nerdtree_tabs_autofind  = 1           "Automatically find and select currently opened file in NERDTree.default: `0`.
-let NERDTreeWinPos=0                        "将NERDTree放置在编辑区,1右边 0左边
-let NERDTreeWinSize=30                      "设置NERDTree的宽度,默认为30
-let NERDTreeShowLineNumbers=1               "显示行号
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']  "不显示以下文件格式
+let g:nerdtree_tabs_open_on_gui_startup = 0 " 启动vim时自动启动NERDTree,1开启,0关闭
+let g:nerdtree_tabs_autofind  = 1           " Automatically find and select currently opened file in NERDTree.default: `0`.
+let NERDTreeWinPos=0                        " 将NERDTree放置在编辑区,1右边 0左边
+let NERDTreeWinSize=30                      " 设置NERDTree的宽度,默认为30
+let NERDTreeShowLineNumbers=1               " 显示行号
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']  " 不显示以下文件格式
 
-"修改快捷键,使之与系统设置的快捷键一致.
-let g:NERDTreeMapOpenInTab="<C-t>" "在新选项卡中打开,快捷键由 t 修改为 <C-t>
-let g:NERDTreeMapOpenVSplit="<C-l>" "在新的垂直拆分中打开,快捷键由 s 修改为 <C-l>
-let g:NERDTreeMapOpenSplit="<C-j>" "在新的水平拆分中打开,快捷键由 i 修改为 <C-j>
+" 修改快捷键,使之与系统设置的快捷键一致.
+let g:NERDTreeMapOpenInTab="<C-t>"  " 在新选项卡中打开,快捷键由 t 修改为 <C-t>
+let g:NERDTreeMapOpenVSplit="<C-l>" " 在新的垂直拆分中打开,快捷键由 s 修改为 <C-l>
+let g:NERDTreeMapOpenSplit="<C-j>"  " 在新的水平拆分中打开,快捷键由 i 修改为 <C-j>
 
-"替换符号
+" 替换符号
 "let g:NERDTreeDirArrowExpandable = '?'
 "let g:NERDTreeDirArrowCollapsible = '▼'
 " 说明
@@ -1094,7 +1091,7 @@ if !exists('g:airline_symbols')
 let g:airline_symbols = {}
 endif
 
-"显示窗口tab和buffer
+" 显示窗口tab和buffer
 let g:airline#extensions#tabline#enabled = 1
 " tabline中buffer显示编号
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -1103,47 +1100,47 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#whitespace#enabled = 0
 "let g:airline#extensions#whitespace#symbol = '!'
 
-"设置airline themes主题配色,不设置主题时airline插件与主题配色一致.
-"let g:airline_theme='dark'                                     "default theme classic
+" 设置airline themes主题配色,不设置主题时airline插件与主题配色一致.
+"let g:airline_theme='dark'                                     " default theme classic
 
-"还不错,4星推荐
-"let g:airline_theme='badwolf'                                  "类默认配色,NORMAL黄绿色,变更后字体变橙
-"let g:airline_theme='light'                                    "很亮的配色,高达配色
-"let g:airline_theme='molokai'                                  "黄色,变更后背景颜色变黄
-"let g:airline_theme='kolor'                                    "紫色/蓝色,变更后背景颜色变紫色
-"let g:airline_theme='violet'                                   "不变更颜色,但是配色朴素好看
+" 还不错,4星推荐
+"let g:airline_theme='badwolf'                                  " 类默认配色,NORMAL黄绿色,变更后字体变橙
+"let g:airline_theme='light'                                    " 很亮的配色,高达配色
+"let g:airline_theme='molokai'                                  " 黄色,变更后背景颜色变黄
+"let g:airline_theme='kolor'                                    " 紫色/蓝色,变更后背景颜色变紫色
+"let g:airline_theme='violet'                                   " 不变更颜色,但是配色朴素好看
 
-"精美,5星推荐
-let g:airline_theme='solarized_flood'                          "颜色灵动,好看,变更后颜色为珊瑚红色喜欢
-"let g:airline_theme='luna'                                     "棒,变更后背景颜色变为深红
-"let g:airline_theme='murmur'                                   "NORMAL蓝色,变更后颜色为深红色喜欢
-"let g:airline_theme='behelit'                                  "深蓝配色,低调,变更后深红色字体
+" 精美,5星推荐
+let g:airline_theme='solarized_flood'                          " 颜色灵动,好看,变更后颜色为珊瑚红色喜欢
+"let g:airline_theme='luna'                                     " 棒,变更后背景颜色变为深红
+"let g:airline_theme='murmur'                                   " NORMAL蓝色,变更后颜色为深红色喜欢
+"let g:airline_theme='behelit'                                  " 深蓝配色,低调,变更后深红色字体
 
-"类grvubox风格
-"let g:airline_theme='base16'                                   "类 gruvbox 风格,NORMAL黄色
-"let g:airline_theme='lucius'                                   "类 gruvbox 风格,NORMAL灰色
-"let g:airline_theme='base16_gruvbox_dark_hard'                 "gruvbox主题没什么特色
+" 类grvubox风格
+"let g:airline_theme='base16'                                   " 类 gruvbox 风格,NORMAL黄色
+"let g:airline_theme='lucius'                                   " 类 gruvbox 风格,NORMAL灰色
+"let g:airline_theme='base16_gruvbox_dark_hard'                 " gruvbox主题没什么特色
 " }}}
 
 " {{{ << Plugin - indentLine >>
 " -----------------------------------------------------------------------------
-"Gvim
-let g:indentLine_color_gui = '#A4E57E'      "设置缩进线的颜色.'#A4E57E'为绿色,'#FF5F00'为红色.
-"let g:indentLine_bgcolor_gui = '#FF5F00'   "设置缩进线底色.
+" Gvim
+let g:indentLine_color_gui = '#A4E57E'      " 设置缩进线的颜色.'#A4E57E'为绿色,'#FF5F00'为红色.
+"let g:indentLine_bgcolor_gui = '#FF5F00'   " 设置缩进线底色.
 
-"vim
-"let g:indentLine_color_term = 239       "设置缩进线颜色.
-"let g:indentLine_bgcolor_term = 202     "设置缩进线底色.
+" vim
+"let g:indentLine_color_term = 239       " 设置缩进线颜色.
+"let g:indentLine_bgcolor_term = 202     " 设置缩进线底色.
 
-"none X terminal
-"let g:indentLine_color_tty_light = 7    "(default:4)
-"let g:indentLine_color_tty_dark = 1     "(default:2)
+" none X terminal
+"let g:indentLine_color_tty_light = 7    " (default:4)
+"let g:indentLine_color_tty_dark = 1     " (default:2)
 " }}}
 
 " {{{ << Plugin - trailing whitespace >>
 " -----------------------------------------------------------------------------
-"行尾空格红色显示.使用:FixWhitespace去除行尾空格.
-"去除行尾空格.用v选中后,使用后可以之去除选中行尾的空格.
+" 行尾空格红色显示.使用:FixWhitespace去除行尾空格.
+" 去除行尾空格.用v选中后,使用后可以之去除选中行尾的空格.
 map <leader><leader><space> :FixWhitespace<CR>
 " }}}
 
@@ -1157,7 +1154,7 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " {{{ << Plugin - interestingwords >>
 " -----------------------------------------------------------------------------
-"默认情况下的配置
+" 默认情况下的配置
 "nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
 "nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
 
@@ -1167,7 +1164,7 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " {{{ << Plugin - EasyMotion >>
 " -----------------------------------------------------------------------------
-let g:EasyMotion_do_mapping = 0      "Disable default mappings
+let g:EasyMotion_do_mapping = 0      " Disable default mappings
 nmap <Leader>f <Plug>(easymotion-s2)
 " }}}
 
@@ -1192,7 +1189,7 @@ if has('gui_running') && has('libcall')
 		call libcallnr(g:MyVimLib, "ToggleFullScreen", 0)
 	endfunction
 
-	"全屏显示Vim
+	" 全屏显示Vim
     "nnoremap <A-CR> <Esc>:call ToggleFullScreen()<CR>
     map <F2> <Esc>:call ToggleFullScreen()<CR>
 
@@ -1208,10 +1205,10 @@ if has('gui_running') && has('libcall')
 		call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
 	endfunction
 
-	"Shift+Y 增加窗口透明度
+	" Shift+Y 增加窗口透明度
     "nmap <s-y> <Esc>:call SetAlpha(3)<CR>
     nmap <F4> <Esc>:call SetAlpha(3)<CR>
-	"Shift+T 降低窗口透明度
+	" Shift+T 降低窗口透明度
 	"nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
 	nmap <F3> <Esc>:call SetAlpha(-3)<CR>
 
@@ -1225,7 +1222,7 @@ if has('gui_running') && has('libcall')
 		call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
 	endfunction
 
-	"Shift+R Vim是否总在最前面显示
+	" Shift+R Vim是否总在最前面显示
 	"nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
 	nmap <A-F2> <Esc>:call SwitchVimTopMostMode()<CR>
 endif
@@ -1234,8 +1231,8 @@ endif
 " {{{ << Plugin - delimitMate >>  provides insert mode auto-completion for quotes, parens, brackets, etc.
 " -----------------------------------------------------------------------------
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
-"let delimitMate_autoclose = 0                  "取消自动补全功能,其余功能不变
-"imap <C-d> <Plug>delimitMateJumpMany           "跳出嵌套括号
+"let delimitMate_autoclose = 0                  " 取消自动补全功能,其余功能不变
+"imap <C-d> <Plug>delimitMateJumpMany           " 跳出嵌套括号
 au FileType python let b:delimitMate_nesting_quotes = ['"']
 let g:delimitMate_matchpairs = "(:),[:],{:}"
 let delimitMate_balance_matchpairs = 1
@@ -1262,15 +1259,15 @@ let g:repl_python_automerge = 1
 let g:repl_ipython_version = '7'
 "nnoremap <leader>r :REPLToggle<Cr>
 "nnoremap <F5> :REPLToggle<Cr>
-let g:repl_position = 3                            "窗口位置:0  bottom; 1  top; 2  left; 3  right
-let g:repl_stayatrepl_when_open = 0                "打开REPL时是回到原文件(0)还是停留在REPL窗口中(1)
-"let g:repl_width = None                           "窗口宽度
-"let g:repl_height = None                          "窗口高度
+let g:repl_position = 3                            " 窗口位置:0  bottom; 1  top; 2  left; 3  right
+let g:repl_stayatrepl_when_open = 0                " 打开REPL时是回到原文件(0)还是停留在REPL窗口中(1)
+"let g:repl_width = None                           " 窗口宽度
+"let g:repl_height = None                          " 窗口高度
 "---------------------------------------------------------------------
 "调试Python程序,此功能有问题,暂不使用.
-"autocmd Filetype python nnoremap <F10> <Esc>:REPLDebugStopAtCurrentLine<Cr>   "在当前行设置断点并运行
-"autocmd Filetype python nnoremap <F8> <Esc>:REPLPDBN<Cr>                      "运行一行(不进入函数)
-"autocmd Filetype python nnoremap <F9> <Esc>:REPLPDBS<Cr>                     "运行一行(进入函数)
+"autocmd Filetype python nnoremap <F10> <Esc>:REPLDebugStopAtCurrentLine<Cr>   " 在当前行设置断点并运行
+"autocmd Filetype python nnoremap <F8> <Esc>:REPLPDBN<Cr>                      " 运行一行(不进入函数)
+"autocmd Filetype python nnoremap <F9> <Esc>:REPLPDBS<Cr>                     " 运行一行(进入函数)
 " }}}
 
 " {{{ << Plugin - Undotree >>
@@ -1285,8 +1282,8 @@ set undofile
 " }}}
 
 " {{{ << Plugin - vim-which-key >>
-let g:which_key_use_floating_win = 0        "修正了 因鼠标点击/窗口大小缩放后/什么都不动时,会有提示error和airline失效的bug.
-set timeoutlen=500                          "use this plugin must set this. default timeoutlen is 1000 ms
+let g:which_key_use_floating_win = 0        " 修正了 因鼠标点击/窗口大小缩放后/什么都不动时,会有提示error和airline失效的bug.
+set timeoutlen=500                          " use this plugin must set this. default timeoutlen is 1000 ms
 " 查看leader的快捷键
 nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
@@ -1308,13 +1305,17 @@ imap <Leader>o <Plug>(emoji-start-complete)
 " }}}
 
 " {{{ Plugin -<< YankRing >>
-let g:yankring_history_dir = '$VIM'                            "将yankring的历史文件夹移到'VIM的根目录下'
-"let g:yankring_history_dir = '$Vim\vimfiles'                  "将yankring的历史文件夹移到指定目录下
-let g:yankring_history_file = 'My_yankring_history'            "文件名
-let g:yankring_replace_n_pkey = '<Leader>p'                    "<leader>p选择上一个复制的文本
-let g:yankring_replace_n_nkey = '<Leader>n'                    "<leader>n选择下一个复制的文本
+let g:yankring_history_dir = '$VIM'                            " 将yankring的历史文件夹移到'VIM的根目录下'
+"let g:yankring_history_dir = '$Vim\vimfiles'                  " 将yankring的历史文件夹移到指定目录下
+let g:yankring_history_file = 'My_yankring_history'            " 文件名
+let g:yankring_replace_n_pkey = '<Leader>p'                    " <leader>p选择上一个复制的文本
+let g:yankring_replace_n_nkey = '<Leader>n'                    " <leader>n选择下一个复制的文本
 "<leader>y显示yankring中的内容
 nmap <Leader>y :YRShow<CR>
+" }}}
+
+" {{{ << Plugin - endwise >>
+" end补全,支持Matlab
 " }}}
 
 " {{{ << Plugin - junegunn/goyo.vim >>
@@ -1369,10 +1370,10 @@ autocmd FileType markdown nnoremap tab :TableModeRealign<Cr>
 autocmd FileType markdown nnoremap ml :GenTocMarked<Cr>
 
 " << Plugin gabrielelana-markdown >>
-let g:markdown_enable_mappings = 0                  "取消该软件NORMAL按键映射
-let g:markdown_enable_insert_mode_mappings = 0      "取消该软件i按键映射
-let g:markdown_enable_spell_checking = 0            "关闭拼写检查
-let g:markdown_enable_folding = 1                   "开启markdown折叠
+let g:markdown_enable_mappings = 0                  " 取消该软件NORMAL按键映射
+let g:markdown_enable_insert_mode_mappings = 0      " 取消该软件i按键映射
+let g:markdown_enable_spell_checking = 0            " 关闭拼写检查
+let g:markdown_enable_folding = 1                   " 开启markdown折叠
 " edit the current code block in another buffer with a guessed file type.
 "autocmd FileType markdown nnoremap <leader>m :MarkdownEditBlock<CR>
 "switch status of things: * item ---- * [ ] ---- * [x] ---- * item
