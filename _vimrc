@@ -23,16 +23,19 @@
 " <F4>                   --增加窗口透明度
 
 " ------------ other useful stuff ---------------
+"  jk                    --INSERT模式 jk相当于<ESC>
 " 禁用默认的s键功能
 
 " <C-a>                  --将光标后的数字增加1
 " <C-x>                  --将光标后的数字减少1
 
+" <C-v>                  --CMD 模式,粘贴快捷键
+
+" xtime                  --插入时间(插入模式下)
+
 " :set syntax=cpp        --手动选择语法高亮 [或 :set filetype=cpp]
 " :%!xxd                 --转储二进制文件,以十六进制形式显示
 " :%!xxd -r              --还原二进制文件
-
-" xtime                  --插入时间(插入模式下)
 
 " ------------------ 高亮 --------------------
 " /XXX                   --高亮XXX (vim自带)
@@ -416,7 +419,7 @@ set ignorecase				 " 忽略大小写
 set smartcase
 " set nowrapscan			 " 搜索到文件两端时不重新搜索
 set vb t_vb=                 " 关闭提示音
-set cursorline               " 突出显示当前行
+set guicursor+=a:blinkon0    " 设置光标不闪烁
 set hidden					 " 允许在有未保存的修改时切换缓冲区
 "set list					 " 显示Tab符,使用一高亮竖线代替
 set listchars=tab:\|\ ,      " 显示Tab符,使用一高亮竖线代替
@@ -457,6 +460,21 @@ set showtabline=2                         " always show tabs in gvim, but not vi
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" ------------------- 行/列高亮 ----------------------
+"Gvim 列高亮 显示
+set cuc cul
+        if &bg == 'dark'
+                hi CursorLine gui=NONE guibg=#333333
+        else
+                hi CursorLine gui=NONE guibg=#CCCCCC
+        endif
+"Gvim 行高亮 显示
+"set cursorline                         " 突出显示当前行
+autocmd WinEnter * set cursorline       " 进入窗口高亮当前行
+autocmd WinLeave * set nocursorline     " 离开窗口取消高亮当前行
+autocmd InsertEnter * set nocursorline  " 插入模式取消高亮当前行
+autocmd InsertLeave * set cursorline    " 离开插入模式恢复高亮当前行
+
 " ------------------- 窗口菜单栏设置 ----------------------
 set lines=100 columns=200   " 启动时窗口尺寸设置
 if has("gui_running")
@@ -478,6 +496,9 @@ language messages zh_CN.utf-8
 
 " {{{ 自定义快捷键
 " ---------------- useful stuff -------------------
+" jk = <ESC>
+inoremap jk <ESC>
+
 " Disable the default s key
 noremap s <nop>
 
@@ -492,6 +513,9 @@ map <silent> <BS> :nohlsearch<CR>
 
 " Open Startify
 noremap <LEADER>st :Startify<CR>
+
+" 在命令行粘贴的快捷键
+cnoremap <C-V> <C-R>+
 
 " 插入时间
 iab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<CR>
@@ -736,18 +760,8 @@ endfunc
 
 " }}}
 
-" {{{ 光标设置
-set guicursor+=a:blinkon0   " 设置光标不闪烁
-"------------Gvim 列光标 显示-------------
-set cuc cul
-        if &bg == 'dark'
-                hi CursorLine gui=NONE guibg=#333333
-        else
-                hi CursorLine gui=NONE guibg=#CCCCCC
-        endif
-"-----------------------------------------
+" {{{ 光标颜色设置
 
-"------------- 光标 颜色设置 -------------
 "------ Except grvubox colorscheme -------
 "将光标设置为黄色,光标下字体颜色为black(white)
 "au InsertLeave * hi Cursor guibg=yellow
