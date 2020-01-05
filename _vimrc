@@ -1,8 +1,8 @@
-" __  ____   __   ___     _____ __  __ ____   ____
-"|  \/  \ \ / /    \ \   / /_ _|  \/  |  _ \ / ___|
-"| |\/| |\ V /      \ \ / / | || |\/| | |_) | |
-"| |  | | | |        \ V /  | || |  | |  _ <| |___
-"|_|  |_| |_|         \_/  |___|_|  |_|_| \_\\____|
+"  __  ____   __   ___     _____ __  __ ____   ____
+" |  \/  \ \ / /    \ \   / /_ _|  \/  |  _ \ / ___|
+" | |\/| |\ V /      \ \ / / | || |\/| | |_) | |
+" | |  | | | |        \ V /  | || |  | |  _ <| |___
+" |_|  |_| |_|         \_/  |___|_|  |_|_| \_\\____|
 "=============================================================================
 "     FileName: _vimrc
 "         Desc: support Python
@@ -17,14 +17,14 @@
 " {{{ 快捷键说明
 
 " ------------- 窗口最大化/透明度 ---------------
-" <Alt-m>               --全屏
-" <Alt-n>               --降低 窗口透明度
-" <Alt-b>               --增加 窗口透明度
-" <Alt-v>               --总在 最前面 显示
+" <Alt-m>                --全屏
+" <Alt-n>                --降低 窗口透明度
+" <Alt-b>                --增加 窗口透明度
+" <Alt-v>                --总在 最前面 显示
 
 " ------------ other useful stuff ---------------
-" jk                    --INSERT模式 jk相当于<ESC>
-" jj                    --INSERT模式 跳出括号(Plugin - delimitMate)
+" jk                     --INSERT模式 jk相当于<ESC>
+" jj                     --INSERT模式 跳出括号(Plugin - delimitMate)
 
 " 禁用s键默认功能
 
@@ -242,7 +242,7 @@
 " <leader><leader><space> --去除行尾多余空格
 
 " << Plugin - pydiction >>
-" <Tab>                          --对Python语言通过Tab键进行补全.
+" <Tab>                        --对Python语言通过Tab键进行补全.
 
 " << Plugin - visual-multi >>  Multiple cursors project for vim/neovim (wip)
 " 选中单词后,键入c替换选中的单词而不是s
@@ -262,12 +262,12 @@
 " Transposition                \\t                          |vm-transpose|
 
 " << Plugin - AuthorInfo >>
-" <F7>                   --呼出AuthorInfoDetect
+" <F7>                  --呼出AuthorInfoDetect
 
 " << Plugin - Calendar >>
-" <F6>                   --呼出日历
-" <Ctrl-F6>              --呼出竖分屏日历
-" <Alt-F6>               --呼出时钟
+" <F6>                  --呼出日历
+" <Ctrl-F6>             --呼出竖分屏日历
+" <Alt-F6>              --呼出时钟
 
 " << Plugin - expand-region >>
 " +                     --expand the visual selection
@@ -304,21 +304,21 @@
 " <leader>to          :Toc  (通过quickfix 窗口打开目录)
 " 标题栏的跳转:选中行(<Shift-v>),再<Enter>,完成跳转
 
-" :HeaderIncrease     --标题升级
-" :HeaderDecrease     --标题降级
+" :HeaderIncrease       --标题升级
+" :HeaderDecrease       --标题降级
 
 " ge        --打开链接(buffer)
 " gx        --打开链接(在新vim中打开)
 
 " << Plugin - Markdown-Preview >>
-" <F12>                   --打开浏览器实时预览markdown
-" <A-F12>                 --关闭浏览器
+" <F12>                 --打开浏览器实时预览markdown
+" <A-F12>               --关闭浏览器
 
 " << Plugin - table-mode >>
-" <leader>tr              --对齐表格(NORMAL Mode)
+" <leader>tr            --对齐表格(NORMAL Mode)
 
 " << Plugin - markdown-toc >>
-" <leader>tc              --插入目录(NORMAL Mode)
+" <leader>tc            --插入目录(NORMAL Mode)
 
 " << Plugin - Pangu >>
 " 功能:
@@ -337,7 +337,7 @@
 " 适用范围 Markdown(*.md *.markdown) Text(*.text *.txt) Wiki(*.wiki) Vim中文文档(*.cnx)
 
 " 2.手动
-" :Pangu                 --手动执行该命令,将当前文件进行规范化
+" :Pangu                --手动执行该命令,将当前文件进行规范化
 
 " }}}
 
@@ -1256,7 +1256,7 @@ endif
 imap jj <Plug>delimitMateJumpMany
 au FileType python let b:delimitMate_nesting_quotes = ['"']
 let delimitMate_matchpairs = "(:),[:],{:}"
-let delimitMate_quotes = "\" ' "
+let delimitMate_quotes = "' \""
 let delimitMate_balance_matchpairs = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
