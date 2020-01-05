@@ -262,12 +262,12 @@
 " Transposition                \\t                          |vm-transpose|
 
 " << Plugin - AuthorInfo >>
-" <F7>                  --呼出AuthorInfoDetect
+" <F2>                  --呼出AuthorInfoDetect
 
 " << Plugin - Calendar >>
-" <F6>                  --呼出日历
-" <Ctrl-F6>             --呼出竖分屏日历
-" <Alt-F6>              --呼出时钟
+" <F11>                  --呼出日历
+" <Ctrl-F11>             --呼出竖分屏日历
+" <Alt-F11>              --呼出时钟
 
 " << Plugin - expand-region >>
 " +                     --expand the visual selection
@@ -1005,8 +1005,8 @@ let g:startify_custom_footer = [
 let g:vimrc_author='MaXL'
 let g:vimrc_email='ismaxiaolong@gmail.com'
 let g:vimrc_homepage='https://twitter.com/Maxl56679061'
-" 使用F7呼出,使用:AuthorInfoDetect呼出
-nmap <F7> :AuthorInfoDetect<cr><cr>
+" 使用F2呼出,使用:AuthorInfoDetect呼出
+nmap <F2> :AuthorInfoDetect<cr><cr>
 " }}}
 
 " {{{ << Plugin - NERDTree >><< Plugin - NERDTreeTabs >>
@@ -1090,9 +1090,9 @@ au Syntax * RainbowParenthesesLoadBraces
 " {{{ << Plugin -  calendar >>
 " -----------------------------------------------------------------------------
 "let g:calendar_diary = "D:/Document/notes/diary"  " 设置日记的存储路径
-map <F6> :Calendar<CR>
-nmap <C-F6> :Calendar -view=year -split=vertical -width=27<CR>
-nmap <A-F6> :Calendar -view=clock<CR>
+map <F11> :Calendar<CR>
+nmap <C-F11> :Calendar -view=year -split=vertical -width=27<CR>
+nmap <A-F11> :Calendar -view=clock<CR>
 let g:Calendar_monday = 1           " 以星期一为开始
 let g:Calendar_focus_today = 1      " 光标在当天的日期上
 let g:Calendar_mark = 'left-fit'    " 可以让*和数字可靠近
