@@ -17,21 +17,23 @@
 " {{{ 快捷键说明
 
 " ------------- 窗口最大化/透明度 ---------------
-" <F2>                   --全屏
-" <Alt-F2>               --总在最前面显示
-" <F3>                   --降低窗口透明度
-" <F4>                   --增加窗口透明度
+" <Alt-m>               --全屏
+" <Alt-n>               --降低 窗口透明度
+" <Alt-b>               --增加 窗口透明度
+" <Alt-v>               --总在 最前面 显示
 
 " ------------ other useful stuff ---------------
-"  jk                    --INSERT模式 jk相当于<ESC>
-" 禁用默认的s键功能
+" jk                    --INSERT模式 jk相当于<ESC>
+" jj                    --INSERT模式 跳出括号(Plugin - delimitMate)
+
+" 禁用s键默认功能
 
 " <C-a>                  --将光标后的数字增加1
 " <C-x>                  --将光标后的数字减少1
 
 " <C-v>                  --CMD 模式,粘贴快捷键
 
-" :diffthis              --CMD 模式,文件比较,分屏打开两个文件后,分别输入diffthis.]-c和[-c移动
+" <leader>dt             --CMD 模式,文件比较,分屏打开两个文件后,该快捷键相当于与输入:diffthis.(]-c和[-c移动)
 
 " xtime                  --插入时间(插入模式下)
 
@@ -144,28 +146,33 @@
 " <Ctrl>n                --将Terminal窗口进入NORMAL模式,方便查看历史信息.a/i键返回原模式
 
 " ------------ Markdown Snippits --------------
-" ,n	 ---
-" ,b	 文本 加粗
-" ,s	 文本中划线
-" ,i	 文本 斜体
-" ,d	 代码块
-" ,c	 大 代码块
-" ,m	 - [ ] 复选框
-" ,p	 图片
-" ,a	 超链接
-" ,1	 # 标题1
-" ,2	 ## 标题2
-" ,3	 ### 标题3
-" ,4	 #### 标题4
-" ,l	 --------
-" ,f     跳转到至下一个 <++> (占位符)
-" ,w     跳转至下一个 <++> (占位符) 然后帮你键入Enter
+" ,n	     ---
+" ,b	     文本 加粗
+" ,s	     文本中划线
+" ,i	     文本 斜体
+" ,d	     代码块
+" ,c	     大 代码块
+" ,m	     - [ ] 复选框
+" ,p	     图片
+" ,a	     超链接
+" ,1	     # 标题1
+" ,2	     ## 标题2
+" ,3	     ### 标题3
+" ,4	     #### 标题4
+" ,l	     --------
+" ,<space>	 输入<br>.markdown语法中的换行
+" ,f         跳转到至下一个 <++> (占位符)
+" ,w         跳转至下一个 <++> (占位符) 然后帮你键入Enter
 
 " ---------------- Plugins --------------------
 " << Plugin - startify >>
 " <leader>st             --打开startify
 " st                     --新建一个垂直分割窗口startify,放置在当前窗口右侧
 " s,v,t                  --在startify打开多文件时,标记s/v/t打开:s(水平窗口)v(垂直窗口)t(tab中打开)
+
+" << Plugin - t9md/vim-choosewin >>
+" -                      --进入choosewin mode
+" -s                     --choosewin mode下按s,交换窗口顺序
 
 " << Plugin - repeat >>
 " '.'                    --NORMAL模式通过'.'重复上一步的命令.
@@ -262,38 +269,6 @@
 " <Ctrl-F6>              --呼出竖分屏日历
 " <Alt-F6>               --呼出时钟
 
-" << Plugin - Markdown-Preview >>
-" <F12>                   --打开浏览器实时预览markdown
-" <A-F12>                 --关闭浏览器
-
-" << Plugin - table-mode >>
-" tab                    --对齐表格(NORMAL Mode)
-
-" << Plugin - markdown-toc >>
-" ml                     --插入目录(NORMAL Mode)
-
-" << Plugin - gabrielelana-markdown >>
-" <Tab>                  --switch status of things: * item ---- * [ ] ---- * [x] ---- * item
-
-" << Plugin - Pangu >>自动格式化 标准化中文排版
-" 适用范围 Markdown(*.md *.markdown) Text(*.text *.txt) Wiki(*.wiki) Vim中文文档(*.cnx)
-"
-" 功能:
-" 中英文字符间增加一个半角空白.
-" 中文前后的半角标点转成全角标点.
-" 全角英文、数字转成半角字符.
-" 连续的句号自动转省略号.
-" 感叹号、问号最多允许连续重复 3 次.
-" 其他中文标点符号不允许重复出现.
-"
-" 二种使用方式: 1.自动 2.手动  (若在文本中添加'PANGU_DISABLE',自动和手动方式不生效.)
-" 1.自动
-" 添加 autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing() 至vimrc.
-" 保存文档自动排版.
-"
-" 2.手动
-" ':Pangu'
-
 " << Plugin - expand-region >>
 " +                     --expand the visual selection
 " _                     --shrink it
@@ -322,6 +297,47 @@
 
 " << Plugin - emoji-complete >>
 " <leader>o             --INSERT 模式下,emoji表情.
+
+" ----------------------Markdown--------------------------
+
+" << Plugin - plasticboyvim - markdown >>
+" <leader>to          :Toc  (通过quickfix 窗口打开目录)
+" 标题栏的跳转:选中行(<Shift-v>),再<Enter>,完成跳转
+
+" :HeaderIncrease     --标题升级
+" :HeaderDecrease     --标题降级
+
+" ge        --打开链接(buffer)
+" gx        --打开链接(在新vim中打开)
+
+" << Plugin - Markdown-Preview >>
+" <F12>                   --打开浏览器实时预览markdown
+" <A-F12>                 --关闭浏览器
+
+" << Plugin - table-mode >>
+" <leader>tr              --对齐表格(NORMAL Mode)
+
+" << Plugin - markdown-toc >>
+" <leader>tc              --插入目录(NORMAL Mode)
+
+" << Plugin - Pangu >>
+" 功能:
+" 中英文字符间增加一个半角空白.
+" 中文前后的半角标点转成全角标点.
+" 全角英文、数字转成半角字符.
+" 连续的句号自动转省略号.
+" 感叹号、问号最多允许连续重复 3 次.
+" 其他中文标点符号不允许重复出现.
+
+" 二种使用方式: 1.自动 2.手动  (若在文本中添加'PANGU_DISABLE',自动和手动方式不生效.)
+
+" 1.自动(当前未启用)
+" 添加 autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing() 至vimrc.
+" 保存文档自动排版.
+" 适用范围 Markdown(*.md *.markdown) Text(*.text *.txt) Wiki(*.wiki) Vim中文文档(*.cnx)
+
+" 2.手动
+" :Pangu                 --手动执行该命令,将当前文件进行规范化
 
 " }}}
 
@@ -509,7 +525,7 @@ inoremap jk <ESC>
 " Disable the default s key
 noremap s <nop>
 
-" 设置可以用 ; 代替 :
+"  ; 代替 :
 map ; :
 
 " 将默认的leader从'\'改为','
@@ -520,6 +536,9 @@ map <silent> <BS> :nohlsearch<CR>
 
 " Open Startify
 noremap <LEADER>st :Startify<CR>
+
+" 比较
+nnoremap <leader>dt :diffthis<CR>
 
 " 在命令行粘贴的快捷键
 cnoremap <C-V> <C-R>+
@@ -542,7 +561,7 @@ noremap <leader>rc :edit $MYVIMRC<cr>
 noremap <leader>rv :source $MYVIMRC<CR>
 
 " --------------- Spell checking ------------------
-" 拼写检查快捷键为\+sc
+" 拼写检查
 map <Leader>sc :set spell!<CR>
 
 map <leader>sn ]s
@@ -943,6 +962,7 @@ autocmd Filetype markdown inoremap ,2 ##<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,3 ###<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,4 ####<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,l --------<Enter>
+autocmd Filetype markdown inoremap ,<space> <br>
 " }}}
 
 " ------------------------------- Plugins Config --------------------------------
@@ -957,7 +977,7 @@ let g:startify_files_number = 20        " 起始页显示的列表长度
 let g:startify_bookmarks            = [
             \ '~/bookmarks',
             \]
-" 设置footer
+" 设置footer(header)
 let g:startify_custom_footer = [
             \ '+------------------------------+',
             \ '|                              |',
@@ -1191,7 +1211,7 @@ if has('gui_running') && has('libcall')
 
 	" 全屏显示Vim
     "nnoremap <A-CR> <Esc>:call ToggleFullScreen()<CR>
-    map <F2> <Esc>:call ToggleFullScreen()<CR>
+    map <A-m> <Esc>:call ToggleFullScreen()<CR>
 
 	let g:VimAlpha = 240
 	function! SetAlpha(alpha)
@@ -1207,10 +1227,10 @@ if has('gui_running') && has('libcall')
 
 	" Shift+Y 增加窗口透明度
     "nmap <s-y> <Esc>:call SetAlpha(3)<CR>
-    nmap <F4> <Esc>:call SetAlpha(3)<CR>
+    nmap <A-b> <Esc>:call SetAlpha(3)<CR>
 	" Shift+T 降低窗口透明度
 	"nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
-	nmap <F3> <Esc>:call SetAlpha(-3)<CR>
+	nmap <A-n> <Esc>:call SetAlpha(-3)<CR>
 
 	let g:VimTopMost = 0
 	function! SwitchVimTopMostMode()
@@ -1223,8 +1243,8 @@ if has('gui_running') && has('libcall')
 	endfunction
 
 	" Shift+R Vim是否总在最前面显示
-	"nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
-	nmap <A-F2> <Esc>:call SwitchVimTopMostMode()<CR>
+    "nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
+    nmap <A-v> <Esc>:call SwitchVimTopMostMode()<CR>
 endif
 " }}}
 
@@ -1232,9 +1252,11 @@ endif
 " -----------------------------------------------------------------------------
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
 "let delimitMate_autoclose = 0                  " 取消自动补全功能,其余功能不变
-"imap <C-d> <Plug>delimitMateJumpMany           " 跳出嵌套括号
+"跳出嵌套括号
+imap jj <Plug>delimitMateJumpMany
 au FileType python let b:delimitMate_nesting_quotes = ['"']
-let g:delimitMate_matchpairs = "(:),[:],{:}"
+let delimitMate_matchpairs = "(:),[:],{:}"
+let delimitMate_quotes = "\" ' "
 let delimitMate_balance_matchpairs = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
@@ -1289,6 +1311,13 @@ nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
 " 查看s的快捷键
 nnoremap <silent> s :<c-u>WhichKey 's'<CR>
+" }}}
+
+" {{{ << Plugin - t9md/vim-choosewin >>
+" invoke with '-'
+nmap  -  <Plug>(choosewin)
+" if you want to use overlay feature
+let g:choosewin_overlay_enable = 1
 " }}}
 
 " {{{ << Plugin - expand-region >>
@@ -1349,39 +1378,47 @@ let g:SignatureMap = {
             \ }
 " }}}
 
-" {{{ Plugin -<< vim-python/python-syntax >>
+" {{{ Plugin - << vim-python/python-syntax >>
 let g:python_highlight_all = 1              " Enable all syntax highlighting features of Python
 "let g:python_highlight_operators = 0       " Highlight operators 运算符号为红色,若取消,令=0
 " }}}
 
-" {{{ MarkDown Plugin -<< markdown-toc >> << table-mode >><< gabrielelana-markdown >> << Pangu >>
+" {{{ MarkDown Plugin - << plasticboyvim-markdown >> << markdown-toc >> << table-mode >> << Pangu >>
 
-"<< Plugin table-mode >>
+" << Plugin - plasticboyvim - markdown >>
+autocmd FileType markdown nnoremap <leader>to :Toc<Cr>
+let g:vim_markdown_toc_autofit = 1                 " Enable TOC window auto-fit,调节合适的窗口尺寸
+
+let g:vim_markdown_conceal = 0                     " 取消隐藏 Markdown          语法符号
+let g:vim_markdown_conceal_code_blocks = 0         " 取消隐藏 代码块            符号 ```
+let g:tex_conceal = ""                             " 取消隐藏 LaTeX math syntax 符号
+
+let g:vim_markdown_math = 1                        " 高亮显示 LaTeX math
+let g:vim_markdown_strikethrough = 1               " 划线文本显示,由 ~~xx~~ 变为 划线~~xx~~划线
+
+let g:vim_markdown_new_list_item_indent = 2        " *item1 *item2 缩进距离为2(默认是4).
+let g:vim_markdown_auto_insert_bullets = 0
+
+let g:vim_markdown_folding_disabled = 1            " 取消 markdown 折叠
+"let g:vim_markdown_no_default_key_mappings = 1    " 取消默认按键映射
+
+"<< Plugin - table-mode >>
 au FileType markdown let g:table_mode_corner = '|'
 au FileType markdown let g:table_mode_delimiter = ' '
 au FileType markdown let g:table_mode_verbose = 0
 au FileType markdown let g:table_mode_auto_align = 0
 autocmd FileType markdown TableModeEnable
-" 对齐表格
-autocmd FileType markdown nnoremap tab :TableModeRealign<Cr>
 
-" << Plugin markdown-toc >>
+" << Plugin - markdown-toc >>
 ":GenTocGFM  :GenTocRedcarpet :GenTocGitLab :GenTocMarked
-autocmd FileType markdown nnoremap ml :GenTocMarked<Cr>
+autocmd FileType markdown nnoremap <leader>tc :GenTocMarked<Cr>
 
-" << Plugin gabrielelana-markdown >>
-let g:markdown_enable_mappings = 0                  " 取消该软件NORMAL按键映射
-let g:markdown_enable_insert_mode_mappings = 0      " 取消该软件i按键映射
-let g:markdown_enable_spell_checking = 0            " 关闭拼写检查
-let g:markdown_enable_folding = 1                   " 开启markdown折叠
-" edit the current code block in another buffer with a guessed file type.
-"autocmd FileType markdown nnoremap <leader>m :MarkdownEditBlock<CR>
-"switch status of things: * item ---- * [ ] ---- * [x] ---- * item
-autocmd FileType markdown nnoremap <silent> <Tab> :call markdown#SwitchStatus()<CR>
+" << Plugin - Pangu >>
+" 手动执行该命令,将当前文件进行规范化
+" `:Pangu` 命令
 
-" << Pangu >>
-" 自动格式化,标准化中文排版
-autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
+" 自动格式化,标准化中文排版(当前未启用)
+"autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
 " }}}
 
 " ------------------------------- 需要python支持的Plugins --------------------------------
