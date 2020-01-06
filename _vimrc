@@ -23,15 +23,17 @@
 " <Alt-v>                --总在 最前面 显示
 
 " ------------ other useful stuff ---------------
+" 禁用s键默认功能
+
 " jk                     --INSERT模式 jk相当于<ESC>
 " jj                     --INSERT模式 跳出括号(Plugin - delimitMate)
-
-" 禁用s键默认功能
 
 " <C-a>                  --将光标后的数字增加1
 " <C-x>                  --将光标后的数字减少1
 
 " <C-v>                  --CMD 模式,粘贴快捷键
+
+" :X                     --文档加密
 
 " <leader>dt             --CMD 模式,文件比较,分屏打开两个文件后,该快捷键相当于与输入:diffthis.(]-c和[-c移动)
 
@@ -68,12 +70,12 @@
 " <SPACE>                --打开 单个折叠
 
 " ------------------ 缩进 --------------------
-" <                      --减少缩进
-" >                      --增加缩进
+" <                      --减少 缩进
+" >                      --增加 缩进
 
 " --------------- 大小写切换 -----------------
-" gU                     --小写变大写
-" gu                     --大写变小写
+" gU                     --小写 变 大写
+" gu                     --大写 变 小写
 
 " ---------------- 光标移动 ------------------
 " <C-o>                  --NORMAL模式,跳转至上一个光标位置
@@ -136,14 +138,14 @@
 " gb                     --buffer切换(向前切换)
 " gB                     --buffer切换(向后切换)
 
-" <leader>x              --关闭当前buffer/tab
+" <leader>x              --关闭当前 buffer/tab
 
 " --------------- CMD命令行 -------------------
-"   Q                    --进入到Ex 命令行模式
+"   Q                    --进入到 Ex 命令行模式
 
 " --------------- 运行Python ------------------
-" <Ctrl><Enter>          --编译Python语言并在窗口中显示
-" <Ctrl>n                --将Terminal窗口进入NORMAL模式,方便查看历史信息.a/i键返回原模式
+" <Ctrl><Enter>          --编译 Python 语言并在窗口中显示
+" <Ctrl>n                --将 Terminal 窗口进入NORMAL模式,方便查看历史信息.a/i键返回原模式
 
 " ------------ Markdown Snippits --------------
 " ,n	     ---
@@ -239,7 +241,7 @@
 " 其它符号对齐将'空格'<Space>换成对应符号,如`=` `:` `.` `|` `&` `#` `,`
 
 " << Plugin - Trailing Whitespace >>
-" <leader><leader><space> --去除行尾多余空格
+" <leader><leader><space>      --去除行尾多余空格
 
 " << Plugin - pydiction >>
 " <Tab>                        --对Python语言通过Tab键进行补全.
@@ -265,9 +267,9 @@
 " <F2>                  --呼出AuthorInfoDetect
 
 " << Plugin - Calendar >>
-" <F11>                  --呼出日历
-" <Ctrl-F11>             --呼出竖分屏日历
-" <Alt-F11>              --呼出时钟
+" <F11>                 --呼出日历
+" <Ctrl-F11>            --呼出竖分屏日历
+" <Alt-F11>             --呼出时钟
 
 " << Plugin - expand-region >>
 " +                     --expand the visual selection
@@ -310,9 +312,8 @@
 " ge        --打开链接(buffer)
 " gx        --打开链接(在新vim中打开)
 
-" << Plugin - Markdown-Preview >>
+" << Plugin - iamcco/markdown-preview.nvim >>
 " <F12>                 --打开浏览器实时预览markdown
-" <A-F12>               --关闭浏览器
 
 " << Plugin - table-mode >>
 " <leader>tr            --对齐表格(NORMAL Mode)
@@ -363,7 +364,7 @@ colorscheme  gruvbox
 
 " }}}
 
-" Alt快捷键BUG解决方案{{{
+" {{{ Alt快捷键BUG解决方案
 " BUG点:Alt快捷键生效与否 与 utf-8 在vimrc位置关系.
 " 1: <A-CR>快捷键设置在"编码格式"位置后,<A-CR>失效.
 " 2: <A-CR>以外的Alt快捷键,若设置在"编码格式"位置前,快捷键失效.
@@ -396,20 +397,28 @@ set guifontwide=Microsoft\ Yahei\ Mono:h14.5:cANSI  " MSYHMONO.ttf
 " }}}
 
 " {{{ 常规设置
-set nocompatible             " 关闭兼容模式
-"PythonPEP8风格的缩进
-au BufNewFile,BufRead *.py
-            \set fileformat=unix         " 以unix格式存储文件,避免在推送到GITHUB或分享给其他用户时出现文件转换问题.
-set textwidth=79
-set autoindent               " 自动对齐
-set tabstop=4                " 设置tab键的宽度
-set softtabstop=4            " 退格键的长度
-set shiftwidth=4             " 换行时行间交错使用4个空格
-set expandtab			     " 在输入tab后,vim用个空格来填充这个tab
+syntax enable                " 打开语法高亮
+syntax on                    " 开启文件类型侦测
+filetype on                  " 侦测文件类型
+filetype indent on           " 针对不同的文件类型采用不同的缩进格式
+filetype plugin on           " 针对不同的文件类型加载对应的插件
+filetype plugin indent on
 
-set wildmode=list:longest,full  " Command <Tab> completion, list matches
-set wildmenu                    " enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~     " stuff to ignore when tab completing
+set nocompatible                     " 关闭兼容模式
+" PythonPEP8风格的缩进
+au BufNewFile,BufRead *.py
+            \set fileformat=unix     " 以unix格式存储文件,避免在推送到GITHUB或分享给其他用户时出现文件转换问题.
+set autoindent                       " 自动对齐
+set tabstop=4                        " 设置tab键的宽度
+set softtabstop=4                    " 退格键的长度
+set shiftwidth=4                     " 换行时行间交错使用4个空格
+set expandtab			             " 在输入tab后,vim用个空格来填充这个tab
+set lazyredraw                       " 延时绘制(提升性能)
+setlocal cm=blowfish2                " cm=zip/blowfish/blowfish2
+
+set wildmode=list:longest,full       " Command <Tab> completion, list matches
+set wildmenu                         " enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~          " stuff to ignore when tab completing
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
@@ -419,10 +428,6 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
-
-set lazyredraw               " 延时绘制(提升性能)
-set formatoptions+=m         " 如遇Unicode值大于255的文本,不必等到空格再折行
-set formatoptions+=B         " 合并两行中文时,不在中间加空格
 
 set linebreak                " 整词换行
 set backspace=2              " 设置退格键可用
@@ -460,15 +465,15 @@ set wrap                     " 设置一行太长,自动换行
 set relativenumber           " 显示相对行号
 set showcmd
 
-syntax enable                " 打开语法高亮
-syntax on                    " 开启文件类型侦测
-filetype on                  " 侦测文件类型
-filetype indent on           " 针对不同的文件类型采用不同的缩进格式
-filetype plugin on           " 针对不同的文件类型加载对应的插件
-filetype plugin indent on
+autocmd FileType tex set textwidth=72         " 文本超过一定长度时自动换行
+autocmd FileType markdown set textwidth=80    " 文本超过一定长度时自动换行
+set formatoptions+=m                          " 如遇Unicode值大于255的文本,不必等到空格再折行
+set formatoptions+=B                          " 合并两行中文时,不在中间加空格
 
-" 每行超过80个的字符用下划线标示
-au BufRead,BufNewFile *.asm,*.c,*.cpp,*.java,*.cs,*.sh,*.lua,*.pl,*.pm,*.py,*.rb,*.hs,*.vim 2match Underlined /.\%81v/
+" 高亮加下划线显示每行第80个字符
+au BufRead,BufNewFile *.asm,*.c,*.cpp,*.java,*.cs,*.sh,*.lua,*.pl,*.pm,*.py,*.rb,*.hs,*.vim,*.md 2match Underlined /.\%81v/
+" Fortran语言,高亮加下划线显示每行第72个字符(遵循Fortran77固定格式)
+au BufRead,BufNewFile *.for 2match Underlined /.\%73v/
 
 " 状态行显示的内容 [包括系统平台/文件类型/坐标/所占比例/时间等]
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %y%r%m%*%=\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
@@ -519,8 +524,8 @@ language messages zh_CN.utf-8
 
 " {{{ 输入法设置(中英文切换)
 " 需输入中文时,应在 INSERT模式 切换到中文输入法,可实现切回 NORMAL模式 为英文输入法.
-autocmd! InsertEnter * set noimdisable
-autocmd! InsertLeave * set imdisable
+autocmd InsertEnter * set noimdisable
+autocmd InsertLeave * set imdisable
 " }}}
 
 " {{{ 自定义快捷键
@@ -534,7 +539,7 @@ noremap s <nop>
 "  ; 代替 :
 map ; :
 
-" 将默认的leader从'\'改为','
+" 更改leader键,从默认的'\'改为','
 let g:mapleader = ","
 
 " 取消高亮
@@ -889,7 +894,7 @@ noremap sh <C-w>t<C-w>K
 noremap srv <C-w>b<C-w>H
 noremap srh <C-w>b<C-w>K
 
-" Press <SPACE> + q to close the window below the current window
+" Press <LEADER> + q to close the window below the current window
 noremap <LEADER>q <C-w>j:q<CR>
 
 "----------------调整分屏尺寸--------------------------------------------------
@@ -948,7 +953,7 @@ function s:CompileRunGcc()
 endfunction
 " }}}
 
-"{{{Markdown Snippits
+" {{{ Markdown Snippits
 "source D:\Program Files\Vim\markdown_snippits.vim
 "'markdown_snippits.vim'
 "autocmd Filetype markdown map <leader>w yiWi[<esc>Ea](<esc>pa)
@@ -1384,12 +1389,12 @@ let g:SignatureMap = {
             \ }
 " }}}
 
-" {{{ Plugin - << vim-python/python-syntax >>
+" {{{ << Plugin - vim-python/python-syntax >>
 let g:python_highlight_all = 1              " Enable all syntax highlighting features of Python
 "let g:python_highlight_operators = 0       " Highlight operators 运算符号为红色,若取消,令=0
 " }}}
 
-" {{{ MarkDown Plugin - << plasticboyvim-markdown >> << markdown-toc >> << table-mode >> << Pangu >>
+" {{{ MarkDown Plugins - << plasticboyvim-markdown >> << markdown-toc >> << table-mode >> << Pangu >>
 
 " << Plugin - plasticboyvim - markdown >>
 autocmd FileType markdown nnoremap <leader>to :Toc<Cr>
@@ -1427,6 +1432,36 @@ autocmd FileType markdown nnoremap <leader>tc :GenTocMarked<Cr>
 "autocmd BufWritePre *.markdown,*.md,*.text,*.txt,*.wiki,*.cnx call PanGuSpacing()
 " }}}
 
+" {{{ MarkDown Preview - << Plugin - iamcco/markdown-preview.nvim >> (需安装:nodejs 和 yarn)
+
+" 安装nodejs 和 yarn. 若不能预览markdown(通过:mess查看,有vim-node-rpc error)
+" 解决途径:通过系统 CMD 到该插件 app 目录下(\Vim\vimfiles\bundle\iamcco markdown-preview.nvim\app)执行 yarn install 即可使用.
+
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 0
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+            \ 'mkit': {},
+            \ 'katex': {},
+            \ 'uml': {},
+            \ 'maid': {},
+            \ 'disable_sync_scroll': 0,
+            \ 'sync_scroll_type': 'middle',
+            \ 'hide_yaml_meta': 1,
+            \ 'sequence_diagrams': {}
+            \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+let g:mkdp_page_title = '「${name}」'
+nmap <F12> <Plug>MarkdownPreview
+" }}}
+
 " ------------------------------- 需要python支持的Plugins --------------------------------
 " {{{ << Plugin - LeaderF >>
 let g:Lf_ReverseOrder = 1
@@ -1461,51 +1496,6 @@ let g:Lf_NormalMap = {
 	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
-" }}}
-
-" {{{ MarkDown Preview Plugins -<< Markdown-Preview >> << mathjax-support >>
-
-" << Plugin - Markdown-Preview >>
-" 设置 chrome 浏览器的路径(或是启动 chrome(或其他现代浏览器)的命令).如果设置了该参数, g:mkdp_browserfunc 将被忽略
-au FileType markdown let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
-" vim 回调函数, 参数为要打开的 url
-au FileType markdown let g:mkdp_browserfunc = ''
-" '1',可以在打开 markdown 后自动打开浏览器预览.(只在打开markdown文件的时候打开一次).
-au FileType markdown let g:mkdp_auto_start = 0
-" '1',在编辑 markdown 的时候检查预览窗口是否已经打开,否则自动打开预览窗口.
-au FileType markdown let g:mkdp_auto_open = 0
-" '1',在切换 buffer 的时候自动关闭预览窗口;'0' 则在切换 buffer 的时候不自动关闭预览窗口.
-au FileType markdown let g:mkdp_auto_close = 0
-" '1',则只有在保存文件,或退出插入模式的时候更新预览,默认为 0,实时更新预览.
-au FileType markdown let g:mkdp_refresh_slow = 0
-" '1',则所有文件都可以使用 MarkdownPreview 进行预览,默认只有 markdown文件可以使用改命令.
-au FileType markdown let g:mkdp_command_for_global = 0
-" '1', 在使用的网络中的其他计算机也能访问预览页面,默认只监听本地(127.0.0.1),其他计算机不能访问.
-au FileType markdown let g:mkdp_open_to_the_world = 0
-" 普通模式
-autocmd FileType markdown nmap <silent> <F12> <Plug>MarkdownPreview
-" 插入模式
-autocmd FileType markdown imap <silent> <F12> <Plug>MarkdownPreview
-" 普通模式
-autocmd FileType markdown nmap <silent> <A-F12> <Plug>StopMarkdownPreview
-" 插入模式
-autocmd FileType markdown imap <silent> <A-F12> <Plug>StopMarkdownPreview
-let g:mkdp_open_ip = ''
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1
-    \ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
-
 " }}}
 
 
