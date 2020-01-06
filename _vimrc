@@ -517,6 +517,12 @@ source $VIMRUNTIME/menu.vim
 language messages zh_CN.utf-8
 " }}}
 
+" {{{ 输入法设置(中英文切换)
+" 需输入中文时,应在 INSERT模式 切换到中文输入法,可实现切回 NORMAL模式 为英文输入法.
+autocmd! InsertEnter * set noimdisable
+autocmd! InsertLeave * set imdisable
+" }}}
+
 " {{{ 自定义快捷键
 " ---------------- useful stuff -------------------
 " jk = <ESC>
