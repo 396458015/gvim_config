@@ -1459,7 +1459,11 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
+
 nmap <F12> <Plug>MarkdownPreview
+
+" 设置预览后代码高亮(绝对路径)
+let g:mkdp_highlight_css = 'D:\Program Files\VIM\vimfiles\bundle\iamcco markdown-preview.nvim\markdown_highlight_solarized_dark.css'
 " }}}
 
 " ------------------------------- 需要python支持的Plugins --------------------------------
@@ -1497,5 +1501,4 @@ let g:Lf_NormalMap = {
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
 " }}}
-
 
