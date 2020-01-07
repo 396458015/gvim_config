@@ -154,15 +154,20 @@
 " ,i	     文本 斜体
 " ,d	     代码块
 " ,c	     大 代码块
-" ,m	     - [ ] 复选框
 " ,p	     图片
 " ,a	     超链接
 " ,1	     # 标题1
 " ,2	     ## 标题2
 " ,3	     ### 标题3
 " ,4	     #### 标题4
+" ,5	     ##### 标题5
+" ,6	     ###### 标题6
 " ,l	     --------
-" ,<space>	 输入<br>.markdown语法中的换行
+" ,m         - [ ] 复选框
+" ,e         $$ equation $$
+" ,r         $ equation $
+" ,<space>	 输入'&emsp;'全角空格
+
 " ,f         跳转到至下一个 <++> (占位符)
 " ,w         跳转至下一个 <++> (占位符) 然后帮你键入Enter
 
@@ -343,24 +348,38 @@
 " }}}
 
 " {{{ 配色方案
-syntax enable
+
+syntax enable                        " 打开语法高亮
+syntax on                            " 开启文件类型侦测
+
+" ------------------- colorscheme ----------------------
+
+" colorscheme: gruvbox solarized zenburn detorte molokai jellybeans hybrid wombat256mod
+" vividchalk darkburn badwolf desert256 dracula base16-greenscreen
+
+colorscheme gruvbox
+
 set background=dark
 "set background=light
 
-colorscheme  gruvbox
-"colorscheme  zenburn
-"colorscheme  detorte
-"colorscheme  molokai
-"colorscheme  jellybeans
-"colorscheme  hybrid
-"colorscheme  wombat256mod
-"colorscheme  vividchalk
-"colorscheme  darkburn
-"colorscheme  solarized
-"colorscheme  badwolf
-"colorscheme  desert256
-"colorscheme  dracula
-"colorscheme  base16-greenscreen
+" --------------------- 光标颜色 -----------------------
+
+" --------- gruvbox colorscheme -----------
+" 光标:粉白色    光标字体:black(white)
+highlight Cursor guifg=#ffdfff guibg=black|au InsertLeave * hi Cursor guibg=black
+
+" 光标:黄色      光标字体:black(white)
+"highlight Cursor guifg=yellow guibg=black|au InsertLeave * hi Cursor guibg=black
+
+" ------ Except grvubox colorscheme -------
+" 光标:粉白色    光标字体:black(white)
+"highlight Cursor guifg=black guibg=#ffdfff|au InsertLeave * hi Cursor guibg=#ffdfff
+
+" 光标:黄色      光标字体:black(white)
+"highlight Cursor guifg=black guibg=yellow|au InsertLeave * hi Cursor guibg=yellow
+
+" 光标:绿色      光标字体:black(white)
+"highlight Cursor guifg=black guibg=green|au InsertLeave * hi Cursor guibg=green
 
 " }}}
 
@@ -397,8 +416,6 @@ set guifontwide=Microsoft\ Yahei\ Mono:h14.5:cANSI  " MSYHMONO.ttf
 " }}}
 
 " {{{ 常规设置
-syntax enable                " 打开语法高亮
-syntax on                    " 开启文件类型侦测
 filetype on                  " 侦测文件类型
 filetype indent on           " 针对不同的文件类型采用不同的缩进格式
 filetype plugin on           " 针对不同的文件类型加载对应的插件
@@ -411,7 +428,6 @@ au BufNewFile,BufRead *.py
 set autoindent                       " 自动对齐
 set tabstop=4                        " 设置tab键的宽度
 set softtabstop=4                    " 退格键的长度
-set shiftwidth=4                     " 换行时行间交错使用4个空格
 set expandtab			             " 在输入tab后,vim用个空格来填充这个tab
 set lazyredraw                       " 延时绘制(提升性能)
 setlocal cm=blowfish2                " cm=zip/blowfish/blowfish2
@@ -431,6 +447,7 @@ set wildignore+=*.png,*.jpg,*.gif
 
 set linebreak                " 整词换行
 set backspace=2              " 设置退格键可用
+set shiftwidth=4             " 换行时行间交错使用4个空格
 set cindent shiftwidth=4     " 自动缩进4空格
 set smartindent              " 智能自动缩进
 set ai!                      " 设置自动缩进
@@ -479,8 +496,6 @@ au BufRead,BufNewFile *.for 2match Underlined /.\%73v/
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %y%r%m%*%=\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set laststatus=2                          " 开启状态栏信息
 set cmdheight=1                           " 命令行的高度,默认为1,这里设为2
-
-set showtabline=2                         " always show tabs in gvim, but not vim
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -803,31 +818,6 @@ endfunc
 
 " }}}
 
-" {{{ 光标颜色设置
-
-" ------ Except grvubox colorscheme -------
-" 将光标设置为黄色,光标下字体颜色为black(white)
-"au InsertLeave * hi Cursor guibg=yellow
-"highlight Cursor guifg=black guibg=yellow
-
-" 将光标设置为绿色,光标下字体颜色为black(white)
-"au InsertLeave * hi Cursor guibg=green
-"highlight Cursor guifg=black guibg=green
-
-" 将光标设置为粉白色,光标下字体颜色为black(white)
-"au InsertLeave * hi Cursor guibg=#ffdfff
-"highlight Cursor guifg=black guibg=#ffdfff
-
-" --------- gruvbox colorscheme -----------
-" 将光标设置为黄色,光标下字体颜色为black(white)
-"au InsertLeave * hi Cursor guibg=black
-"highlight Cursor guifg=yellow guibg=black
-
-" 将光标设置为粉白色,光标下字体颜色为black(white)
-au InsertLeave * hi Cursor guibg=black
-highlight Cursor guifg=#ffdfff guibg=black
-" }}}
-
 " {{{ 代码折叠
 "-------------------- 类型 -----------------------
 set foldmethod=marker         " 折叠类型---对文中标志折叠
@@ -972,8 +962,13 @@ autocmd Filetype markdown inoremap ,1 #<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,2 ##<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,3 ###<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,4 ####<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap ,5 #####<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap ,6 ######<Space><Enter><++><Esc>kA
 autocmd Filetype markdown inoremap ,l --------<Enter>
-autocmd Filetype markdown inoremap ,<space> <br>
+autocmd Filetype markdown inoremap ,m - [ ] <Esc>A
+autocmd Filetype markdown inoremap ,e $$$$<CR><++><Esc>kF$i
+autocmd Filetype markdown inoremap ,r $$ <++><Esc>F$i
+autocmd Filetype markdown inoremap ,<space> &emsp;
 " }}}
 
 " ------------------------------- Plugins Config --------------------------------
@@ -1501,4 +1496,5 @@ let g:Lf_NormalMap = {
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
 " }}}
+
 
