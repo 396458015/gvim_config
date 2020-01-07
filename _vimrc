@@ -302,6 +302,9 @@
 
 " ----------------------Markdown--------------------------
 
+" << Plugin - iamcco/markdown-preview.nvim >>
+" <F12>                 --打开浏览器实时预览markdown
+
 " << Plugin - plasticboyvim - markdown >>
 " <leader>to          :Toc  (通过quickfix 窗口打开目录)
 " 标题栏的跳转:选中行(<Shift-v>),再<Enter>,完成跳转
@@ -311,9 +314,6 @@
 
 " ge        --打开链接(buffer)
 " gx        --打开链接(在新vim中打开)
-
-" << Plugin - iamcco/markdown-preview.nvim >>
-" <F12>                 --打开浏览器实时预览markdown
 
 " << Plugin - table-mode >>
 " <leader>tr            --对齐表格(NORMAL Mode)
