@@ -58,7 +58,7 @@
 " E                      --光标向下移动5行
 
 " ----------------- 替换文本 -----------------
-" \s                     --替换文字
+" <leader>z              --替换文字
 
 " ------------------ vimrc -------------------
 " <leader>rc             --呼出配置文件
@@ -216,7 +216,7 @@
 " << Plugin - NERDTree >>
 " <leader>e              --启动/关闭NERDTree
 " r                      --刷新
-" <C-t> <C-l> <C-j>      --打开选择文件(新tab/垂直分屏/水平分屏)
+" t sl sj                --打开选择文件(新tab/垂直分屏/水平分屏)
 
 " << Plugin - Sourround >>
 " yss)                   --对行添加成对符号
@@ -500,6 +500,9 @@ set cmdheight=1                           " 命令行的高度,默认为1,这里
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" 当剩余的窗口都不是文件编辑窗口时,自动退出vim
+autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+
 " ------------------- 行/列高亮 ----------------------
 " Gvim 行+列高亮 显示(cuc = cursorcolumn cul = cursorline)
 set cuc cul
@@ -643,9 +646,9 @@ nmap <A-h> <ESC>0
 ":inoremap  <ESC>
 
 " ----------------- find and replace --------------
-noremap \s :%s/\<<C-R>=expand("<cword>")<CR>\>//g<left><left>
+noremap <leader>z :%s/\<<C-R>=expand("<cword>")<CR>\>//g<left><left>
 " noremap \s :%s///g<left><left><left>
-vnoremap \s :s///g<left><left><left>
+vnoremap <leader>z :s///g<left><left><left>
 
 " ----------------- Indentation -------------------
 nnoremap < <<
@@ -1027,9 +1030,9 @@ let NERDTreeShowLineNumbers=1               " 显示行号
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']  " 不显示以下文件格式
 
 " 修改快捷键,使之与系统设置的快捷键一致.
-let g:NERDTreeMapOpenInTab="<C-t>"  " 在新选项卡中打开,快捷键由 t 修改为 <C-t>
-let g:NERDTreeMapOpenVSplit="<C-l>" " 在新的垂直拆分中打开,快捷键由 s 修改为 <C-l>
-let g:NERDTreeMapOpenSplit="<C-j>"  " 在新的水平拆分中打开,快捷键由 i 修改为 <C-j>
+let g:NERDTreeMapOpenInTab="t"   " 在新选项卡中打开,快捷键由 t 修改为 t
+let g:NERDTreeMapOpenVSplit="sl" " 在新的垂直拆分中打开,快捷键由 s 修改为 sl
+let g:NERDTreeMapOpenSplit="sj"  " 在新的水平拆分中打开,快捷键由 i 修改为 sj
 
 " 替换符号
 "let g:NERDTreeDirArrowExpandable = '?'
@@ -1457,7 +1460,7 @@ let g:mkdp_page_title = '「${name}」'
 
 nmap <F12> <Plug>MarkdownPreview
 
-" 设置预览后代码高亮(绝对路径)
+" 设置预览代码高亮(绝对路径)
 let g:mkdp_highlight_css = 'D:\Program Files\VIM\vimfiles\bundle\iamcco markdown-preview.nvim\markdown_highlight_solarized_dark.css'
 " }}}
 
