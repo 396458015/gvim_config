@@ -124,6 +124,9 @@
 " <C-k>                  --同屏的分屏窗口之间切换,如buffer/quickfix/terminal
 " <C-l>                  --同屏的分屏窗口之间切换,如buffer/quickfix/terminal
 
+" <Alt-u>                --分屏后,让参考屏向上滚动
+" <Alt-d>                --分屏后,让参考屏向下滚动
+
 " w<up>                  --调整上下分屏尺寸
 " w<down>                --调整上下分屏尺寸
 " w<left>                --调整左右分屏尺寸
@@ -864,6 +867,10 @@ tnoremap <C-h> <C-w><C-h>
 tnoremap <C-j> <C-w><C-j>
 tnoremap <C-k> <C-w><C-k>
 tnoremap <C-l> <C-w><C-l>
+
+" 分屏后,让参考屏上下滚动
+noremap <M-u> <C-w>p<C-u><C-w>p
+noremap <M-d> <C-w>p<C-d><C-w>p
 
 " 使terminal变为NORMAL模式,从而可以看历史记录
 tnoremap <C-n> <C-w>N
