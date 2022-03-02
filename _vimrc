@@ -73,6 +73,8 @@ Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-highlightedyank-master'
 Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-cycle-master'
 Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-orgmode-master'
 Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-speeddating-master', { 'for': ['org'] }
+Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-visual-increment-master'
+Plug 'D:\Program Files\Vim\vimfiles\bundle\sideways.vim-main'
 
 "Plug 'D:\Program Files\Vim\vimfiles\bundle\vimtex-master', { 'for': 'tex' }
 "Plug 'D:\Program Files\Vim\vimfiles\bundle\mg979-vim-visual-multi'
@@ -95,6 +97,7 @@ Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-speeddating-master', { 'for': ['o
 "Plug 'D:\Program Files\Vim\vimfiles\bundle\ale-master'
 "Plug 'D:\Program Files\Vim\vimfiles\bundle\lightline-ale-master'
 "Plug 'D:\Program Files\Vim\vimfiles\bundle\vim-repeat-master'
+
 
 call plug#end()
 
@@ -906,6 +909,8 @@ inoremap <A-l> <Right>
 " INSERT Mode下使用光标移动一个单词
 inoremap <C-h> <C-Left>
 inoremap <C-l> <C-Right>
+
+
 
 " INSERT Mode Cursor Movement
 inoremap <C-a> <ESC>I
@@ -2555,6 +2560,41 @@ let g:org_agenda_files=['D:\Program Files\Vim\vimfiles\doc\todo.org']
 nnoremap <leader>ss :<C-U>e D:\Program Files\Vim\vimfiles\doc\todo.org<CR>
 
 nmap <localleader>tg <Plug>OrgSetTags
+" }}}
+
+" {{{ 移动括号内被,分割的东东 << Plugin - Sideways.vim-main >>
+nnoremap <c-h> :SidewaysLeft<cr>
+nnoremap <c-l> :SidewaysRight<cr>
+
+"用法
+" def function(one, two, three)    ------------>     def function(two, one, three):
+
+" }}}
+
+" {{{ 数列递增递减，字母序列递增递减 << Plugin - vim-visual-increment-master >>
+"字母序列的递增
+set nrformats=alpha,octal,hex
+
+"用法
+"<C-a>增加(差值1)
+"<C-x>减小(差值1)
+"n<C-a>增加(差值n)
+"n<C-x>减小(差值n)
+
+"<C-a>增加
+" 1         1
+" 1   ----> 2
+" 1         3
+
+"<C-a>增加
+" a         a
+" a   ----> b
+" a         c
+
+"n<C-a>增加
+" 1         1
+" 1   ----> 1+n
+" 1         1+2n
 " }}}
 
 
